@@ -23,6 +23,10 @@ namespace MemberModule.Controllers
             return View();
         }
 
+        public IActionResult CreateEditMember()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
