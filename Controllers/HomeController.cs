@@ -18,7 +18,7 @@ namespace MemberModule.Controllers
             return View();
         }
 
-        public IActionResult Expenses()
+        public IActionResult Members()
         {
             return View();
         }
