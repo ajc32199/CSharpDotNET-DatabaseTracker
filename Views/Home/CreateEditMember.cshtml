@@ -9,7 +9,7 @@
 	<h1>Create or edit a member</h1>
 </div>
 
-<form>
+<form asp-action="CreateEditMemberForm" asp-controller="Home">
 	<label class="mt-4">First Name:</label>
 	<input asp-for="FirstName" class="form-control" palceholder="First Name" />
 	<label class="mt-4">Last Name:</label>

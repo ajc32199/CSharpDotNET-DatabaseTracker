@@ -1,3 +1,9 @@
+
+
+
+using MemberModule.Models;
+using Microsoft.EntityFrameworkCore;
+
 namespace MemberModule
 {
     public class Program
@@ -8,6 +14,10 @@ namespace MemberModule
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<MembersDBContext>(options =>
+            
+                options.UseInMemoryDatabase("MembersDB")
+            );
 
             var app = builder.Build();
 
