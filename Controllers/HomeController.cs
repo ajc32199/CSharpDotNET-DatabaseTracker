@@ -8,9 +8,12 @@ namespace MemberModule.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly MembersDBContext _context;
+
+        public HomeController(ILogger<HomeController> logger, MembersDBContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -20,6 +23,7 @@ namespace MemberModule.Controllers
 
         public IActionResult Members()
         {
+            //Next step is here, video at 35:27
             return View();
         }
 
@@ -27,6 +31,14 @@ namespace MemberModule.Controllers
         {
             return View();
         }
+
+        public IActionResult CreateEditMemberForm(Member model)
+        {
+            _context.Members.Add(model);
+            _context.SaveChanges();
+            return RedirectToAction("Members");
+        }
+
         public IActionResult Privacy()
         {
             return View();

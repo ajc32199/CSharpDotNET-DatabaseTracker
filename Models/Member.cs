@@ -9,7 +9,7 @@ namespace MemberModule.Models
         //Last Name
         //Email
         //Phone Number
-
+        [Key]
         [Required]
         public string? FirstName { get; set; }
 
