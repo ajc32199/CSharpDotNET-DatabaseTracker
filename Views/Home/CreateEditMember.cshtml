@@ -2,12 +2,21 @@
 	ViewData["Title"] = "CreateEditMember";
 }
 
-@model MemberModule.Models.Member
+@model MemberModule.Models.Member;
+
 
 <div class="text-center">
 	<h1>Create or edit a member</h1>
 </div>
 
 <form>
-	
+	<label>First Name:</label>
+	<input asp-for="FirstName" class="form-control" />
+	<label>Last Name:</label>
+	<input asp-for="LastName" class="form-control" />
+	<label>Email:</label>
+	<input asp-for="Email" class="form-control" />
+	<label>Phone:</label>
+	<input asp-for="PhoneNumber" class="form-control" />
+
 </form>
