@@ -10,6 +10,10 @@ namespace MemberModule.Models
         //Email
         //Phone Number
         [Key]
+
+        [Required]
+        public int? Id { get; set; }
+
         [Required]
         public string? firstName { get; set; }
 

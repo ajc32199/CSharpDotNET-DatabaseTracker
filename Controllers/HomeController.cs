@@ -27,11 +27,11 @@ namespace MemberModule.Controllers
             return View(allMembers);
         }
 
-        public IActionResult CreateEditMember(int? scrollNumber)
+        public IActionResult CreateEditMember(int? id)
         {
-            if(scrollNumber != null)
+            if(id != null)
             {
-                var memberInDb = _context.Members.FirstOrDefault(member => member.scroll == scrollNumber);
+                var memberInDb = _context.Members.FirstOrDefault(member => member.Id == id);
                 return View(memberInDb);
             }
 
@@ -39,9 +39,9 @@ namespace MemberModule.Controllers
             return View();
         }
 
-        public IActionResult Delete(int scrollNumber)
+        public IActionResult DeleteMember(int id)
         {
-            var memberInDb = _context.Members.FirstOrDefault(member => member.scroll == scrollNumber);
+            var memberInDb = _context.Members.FirstOrDefault(member => member.Id == id);
             _context.Members.Remove(memberInDb);
             _context.SaveChanges();
             return RedirectToAction("Members");
@@ -49,7 +49,7 @@ namespace MemberModule.Controllers
 
         public IActionResult CreateEditMemberForm(Member model)
         {
-            if(model.scroll == 0)
+            if(model.Id == 0)
             {
                 //create
                 _context.Members.Add(model);
