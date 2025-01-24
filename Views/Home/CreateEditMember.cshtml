@@ -11,13 +11,15 @@
 
 <form asp-action="CreateEditMemberForm" asp-controller="Home">
 	<label class="mt-4">First Name:</label>
-	<input asp-for="FirstName" class="form-control" palceholder="First Name" />
+	<input asp-for="firstName" class="form-control" palceholder="First Name" />
 	<label class="mt-4">Last Name:</label>
-	<input asp-for="LastName" class="form-control" />
+	<input asp-for="lastName" class="form-control" />
 	<label class="mt-4">Email:</label>
-	<input asp-for="Email" class="form-control" />
+	<input asp-for="email" class="form-control" />
 	<label class="mt-4">Active Status:</label>
-	<input class="form-control" type="text" asp-for="Active" />
+	<input class="form-control" type="text" asp-for="active" />
+	<label class="mt-4">Scroll Number:</label>
+	<input class="form-control" type="text" asp-for="scroll" />
 
 	<button type="submit" class="btn btn-primary mt-4">Submit Member</button>
 

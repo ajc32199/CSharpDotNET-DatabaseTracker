@@ -2,10 +2,64 @@
 	ViewData["Title"] = "Members";
 
 }
+
+@model List<Member>;
 <div>
 	<h1>Members</h1>
 	<p>Here are your members:</p>
+	<br />
 
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					First Name
+				</th>
+				<th>
+					Last Name
+				</th>
+				<th>
+					Email
+				</th>
+				<th>
+					Active
+				</th>
+				<th>
+					Scroll
+				<th>
+					Actions
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@{
+				foreach (var member in Model)
+				{
+					<tr>
+						<td>
+							@member.firstName
+						</td>
+						<td>
+							@member.lastName
+						</td>
+						<td>
+							@member.email
+						</td>
+						<td>
+							@member.active
+						</td>
+						<td>
+							@member.scroll
+						</td>
+						<td>
+							<a asp-action="CreateEditExpense" asp-route-id="@member.lastName">Edit</a>
+							<a asp-action="Delete">Delete</a>
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
 
 </div>
 
