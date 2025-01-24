@@ -10,6 +10,7 @@
 </div>
 
 <form asp-action="CreateEditMemberForm" asp-controller="Home">
+	<input hidden class="form-control" type="number" placeholder="0" asp-for="Id"/>
 	<label class="mt-4">First Name:</label>
 	<input asp-for="firstName" class="form-control" palceholder="First Name" />
 	<label class="mt-4">Last Name:</label>
