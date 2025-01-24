@@ -23,8 +23,8 @@ namespace MemberModule.Controllers
 
         public IActionResult Members()
         {
-            //Next step is here, video at 35:27
-            return View();
+            var allMembers = _context.Members.ToList();
+            return View(allMembers);
         }
 
         public IActionResult CreateEditMember()
