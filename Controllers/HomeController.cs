@@ -27,15 +27,41 @@ namespace MemberModule.Controllers
             return View(allMembers);
         }
 
-        public IActionResult CreateEditMember()
+        public IActionResult CreateEditMember(int? scrollNumber)
         {
+            if(scrollNumber != null)
+            {
+                var memberInDb = _context.Members.FirstOrDefault(member => member.scroll == scrollNumber);
+                return View(memberInDb);
+            }
+
+
             return View();
+        }
+
+        public IActionResult Delete(int scrollNumber)
+        {
+            var memberInDb = _context.Members.FirstOrDefault(member => member.scroll == scrollNumber);
+            _context.Members.Remove(memberInDb);
+            _context.SaveChanges();
+            return RedirectToAction("Members");
         }
 
         public IActionResult CreateEditMemberForm(Member model)
         {
-            _context.Members.Add(model);
+            if(model.scroll == 0)
+            {
+                //create
+                _context.Members.Add(model);
+            }
+            else
+            {
+
+                _context.Members.Update(model);
+            }
+
             _context.SaveChanges();
+
             return RedirectToAction("Members");
         }
 
