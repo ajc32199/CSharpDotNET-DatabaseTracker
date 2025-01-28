@@ -16,7 +16,7 @@ namespace MemberModule
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<MembersDBContext>(options =>
             
-                options.UseInMemoryDatabase("MembersDB")
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
             );
 
             var app = builder.Build();

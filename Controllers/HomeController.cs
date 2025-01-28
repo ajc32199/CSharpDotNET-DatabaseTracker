@@ -1,6 +1,10 @@
 using System.Diagnostics;
 using MemberModule.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging; // Ensure this namespace is included
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace MemberModule.Controllers
 {
@@ -21,17 +25,21 @@ namespace MemberModule.Controllers
             return View();
         }
 
-        public IActionResult Members()
+        public async Task<IActionResult> Members()
         {
-            var allMembers = _context.Members.ToList();
+            var allMembers = _context.Members.ToListAsync();
             return View(allMembers);
         }
 
-        public IActionResult CreateEditMember(int? id)
+        public async Task<IActionResult> CreateEditMemberForm(int? id)
         {
             if(id != null)
             {
-                var memberInDb = _context.Members.FirstOrDefault(member => member.Id == id);
+                var memberInDb = await _context.Members.FindAsync(id);
+                if(memberInDb == null)
+                {
+                    return NotFound();
+                }
                 return View(memberInDb);
             }
 
@@ -39,30 +47,47 @@ namespace MemberModule.Controllers
             return View();
         }
 
-        public IActionResult DeleteMember(int id)
+        public async Task<IActionResult> DeleteMember(int id)
         {
-            var memberInDb = _context.Members.FirstOrDefault(member => member.Id == id);
-            _context.Members.Remove(memberInDb);
-            _context.SaveChanges();
-            return RedirectToAction("Members");
+            var memberInDb = await _context.Members.FindAsync(id);
+            if(memberInDb == null)
+            {
+                return NotFound();
+            }
+            return View(memberInDb);
         }
 
-        public IActionResult CreateEditMemberForm(Member model)
+        [HttpPost, ActionName("DeleteMember")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteMemberConfirmed(int id)
         {
-            if(model.Id == 0)
+            var memberInDb = await _context.Members.FindAsync(id);
+            if(memberInDb == null)
             {
-                //create
-                _context.Members.Add(model);
+                return NotFound();
             }
-            else
+            _context.Members.Remove(memberInDb);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Members));
+        }
+
+        public async Task<IActionResult> CreateEditMember(Member model)
+        {
+            if(ModelState.IsValid)
             {
-
-                _context.Members.Update(model);
+                if(model.Id == 0)
+                {
+                    //create
+                    _context.Members.Add(model);
+                }
+                else
+                {
+                    _context.Members.Update(model);
+                }
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Members));
             }
-
-            _context.SaveChanges();
-
-            return RedirectToAction("Members");
+            return View(model);
         }
 
         public IActionResult Privacy()
