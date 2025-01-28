@@ -27,7 +27,7 @@ namespace MemberModule.Controllers
 
         public async Task<IActionResult> Members()
         {
-            var allMembers = _context.Members.ToListAsync();
+            var allMembers = await _context.Members.ToListAsync();
             return View(allMembers);
         }
 
@@ -87,6 +87,13 @@ namespace MemberModule.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Members));
             }
+
+            var modelStateErrors = ModelState.Values.SelectMany(v => v.Errors);
+            foreach (var error in modelStateErrors)
+            {
+                _logger.LogError(error.ErrorMessage);
+            }
+
             return View(model);
         }
 

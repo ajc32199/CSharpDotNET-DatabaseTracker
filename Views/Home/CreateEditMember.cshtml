@@ -1,0 +1,27 @@
+﻿@{
+	ViewData["Title"] = "CreateEditMember";
+}
+
+@model MemberModule.Models.Member;
+
+
+<div class="text-center">
+	<h1>Create or edit a member</h1>
+</div>
+
+<form asp-action="CreateEditMember" asp-controller="Home">
+	<input type="hidden" asp-for="Id" />
+	<label class="mt-4">First Name:</label>
+	<input asp-for="firstName" class="form-control" placeholder="First Name" />
+	<label class="mt-4">Last Name:</label>
+	<input asp-for="lastName" class="form-control" />
+	<label class="mt-4">Email:</label>
+	<input asp-for="email" class="form-control" />
+	<label class="mt-4">Active Status:</label>
+	<input class="form-control" type="text" asp-for="active" />
+	<label class="mt-4">Scroll Number:</label>
+	<input class="form-control" type="text" asp-for="scroll" />
+
+	<button type="submit" class="btn btn-primary mt-4">Submit Member</button>
+
+</form>
