@@ -54,20 +54,23 @@ namespace MemberModule.Controllers
             {
                 return NotFound();
             }
-            return View(memberInDb);
+            _context.Members.Remove(memberInDb);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Members));
         }
 
         [HttpPost, ActionName("DeleteMember")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteMemberConfirmed(int id)
         {
+            _logger.LogInformation("DeleteMemberConfirmed Action hit");
             var memberInDb = await _context.Members.FindAsync(id);
             if(memberInDb == null)
             {
                 return NotFound();
             }
-            _context.Members.Remove(memberInDb);
-            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Members));
         }
 
